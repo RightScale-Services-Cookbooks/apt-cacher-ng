@@ -13,7 +13,6 @@ depends 'rightscale_tag', '~> 1.0.5'
 
 recipe 'apt-cacher-ng::default', 'Initial apt-cacher-ng'
 recipe 'apt-cacher-ng::volume', 'Creates or restores a volume and attaches it to the server.'
-recipe 'apt-cacher-ng::cache_server', 'Configure apt-cacher-ng'
 recipe 'apt-cacher-ng::collectd', 'Setup apt-cacher-ng monitoring'
 recipe 'apt-cacher-ng::tags', 'Setup instance tagging'
 recipe 'apt-cacher-ng::cache_sync', 'Sync cache with the primary cache server'
@@ -31,7 +30,7 @@ attribute "apt-cacher-ng/cache/port",
           :default => "3142",
           :required => "required",
           :recipes => [
-            'apt-cacher-ng::cache_server',
+            'apt-cacher-ng::default',
             'apt-cacher-ng::cache_client',
             ]
 
@@ -51,7 +50,7 @@ attribute "apt-cacher-ng/cache/cache_dir",
           :required => "required",
           :recipes => [
             'apt-cacher-ng::volume',
-            'apt-cacher-ng::cache_server',
+            'apt-cacher-ng::default',
           ]
 
 attribute "apt-cacher-ng/sync/interval",
@@ -69,7 +68,7 @@ attribute "apt-cacher-ng/sync/ssh_key",
                           ' and all secondary servers must have this key to sync cache data propertly.',
           :required => "optional",
           :recipes => [
-            'apt-cacher-ng::cache_server'
+            'apt-cacher-ng::default'
           ]
 
 attribute "apt-cacher-ng/volume/nickname",
