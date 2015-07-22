@@ -22,4 +22,8 @@ marker 'recipe_start_rightscale' do
 end
 
 node.set['apt']['cacher_dir'] = node['apt-cacher-ng']['cache']['dir']
+node.set['apt']['caching_server'] = true
 include_recipe 'apt::cacher-ng'
+
+# Setup server to use its own cache
+include_recipe 'apt::cacher-client'
