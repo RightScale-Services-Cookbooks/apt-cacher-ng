@@ -7,9 +7,8 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.1.1'
 
 depends 'apt'
-depends 'collectd'
 depends 'marker', '~> 1.0.1'
-depends 'rightscale_tag', '~> 1.0.5'
+#depends 'rightscale_tag', '~> 1.0.5'
 
 recipe 'apt-cacher-ng::default', 'Initial apt-cacher-ng'
 #recipe 'apt-cacher-ng::volume', 'Creates or restores a volume and attaches it to the server.'
