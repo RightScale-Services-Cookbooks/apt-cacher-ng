@@ -13,6 +13,10 @@ describe 'apt-cacher-ng::default' do
       runner.converge(described_recipe)
     end
 
+    before do
+      stub_command("grep Acquire::http::Proxy /etc/apt/apt.conf").and_return(true)
+    end
+    
     it 'includes apt::cacher-ng' do
       expect(chef_run).to include_recipe('apt::cacher-ng')
     end
