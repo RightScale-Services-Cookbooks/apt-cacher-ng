@@ -1,4 +1,4 @@
 # apt-cacher-ng
 
-TODO: Enter the cookbook description here.
+[![Build Status](https://travis-ci.org/RightScale-Services-Cookbooks/apt-cacher-ng.svg?style=flat)][travis]
 
