@@ -20,4 +20,5 @@
 node.set['apt']['cacher_ipaddress'] = node['apt-cacher-ng']['cache']['server']
 node.set['apt']['cacher_port'] = node['apt-cacher-ng']['cache']['port']
 
+include_recipe 'apt::default'
 include_recipe 'apt::cacher-client'
