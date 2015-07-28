@@ -1,13 +1,13 @@
 # apt-cacher-ng
 
-[![Release](https://img.shields.io/github/release/RightScale-Services-Cookbooks/apt-cacher-ng.svg?style=flat)][release]
-[![Build Status](https://travis-ci.org/RightScale-Services-Cookbooks/apt-cacher-ng.svg?style=flat)][travis]
-[travis]: https://travis-ci.org/RightScale-Services-Cookbooks/apt-cacher-ng
-[release]: https://github.com/RightScale-Services-Cookbooks/apt-cacher-ng/releases/latest
+[![Release](https://img.shields.io/github/release/RightScale-Services-Cookbooks/rsc_apt-cacher-ng.svg?style=flat)][release]
+[![Build Status](https://travis-ci.org/RightScale-Services-Cookbooks/rsc_apt-cacher-ng.svg?style=flat)][travis]
+[travis]: https://travis-ci.org/RightScale-Services-Cookbooks/rsc_apt-cacher-ng
+[release]: https://github.com/RightScale-Services-Cookbooks/rsc_apt-cacher-ng/releases/latest
 
 Provides recipes for managing an Apt Cacher NG server with RightScale.
 
-Github Repository: [https://github.com/RightScale-Services-Cookbooks/apt-cacher-ng](https://github.com/RightScale-Services-Cookbooks/apt-cacher-ng)
+Github Repository: [https://github.com/RightScale-Services-Cookbooks/rsc_apt-cacher-ng](https://github.com/RightScale-Services-Cookbooks/rsc_apt-cacher-ng)
 
 # Requirements
 * Requires Chef 11 or higher
