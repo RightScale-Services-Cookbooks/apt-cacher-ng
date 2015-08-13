@@ -10,8 +10,8 @@ describe 'apt-cacher-ng::enable_scheduled_backups' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
         node.set['apt-cacher-ng']['backup']['lineage'] = 'testing'
-        node.set['apt-cacher-ng']['schedule']['hour'] = '10'
-        node.set['apt-cacher-ng']['schedule']['minute'] = '30'
+        node.set['apt-cacher-ng']['backup']['schedule']['hour'] = '10'
+        node.set['apt-cacher-ng']['backup']['schedule']['minute'] = '30'
       end.converge(described_recipe)
     end
     let(:lineage) { chef_run.node['apt-cacher-ng']['backup']['lineage'] }

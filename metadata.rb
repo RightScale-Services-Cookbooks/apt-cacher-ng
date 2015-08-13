@@ -123,7 +123,7 @@ attribute "apt-cacher-ng/backup/schedule/hour",
 attribute "apt-cacher-ng/backup/schedule/minute",
           :display_name => "Backup Schedule Minute",
           :description => "The minute to schedule the backup on. This value should abide by crontab syntax. Use '*' for taking" +
-                          ' backups every hour. Example: 30',
+                          ' backups every minute. Example: 30',
           :required => 'required',
           :recipes => ['apt-cacher-ng::enable_scheduled_backups']
           
