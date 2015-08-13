@@ -21,6 +21,9 @@ marker "recipe_start_rightscale" do
   template "rightscale_audit_entry.erb"
 end
 
+include_recipe 'rightscale_volume::default'
+include_recipe 'rightscale_backup::default'
+
 detach_timeout = node['apt-cacher-ng']['device']['detach_timeout'].to_i
 device_nickname = node['apt-cacher-ng']['device']['nickname']
 size = node['apt-cacher-ng']['device']['volume_size'].to_i
