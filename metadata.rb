@@ -10,7 +10,7 @@ depends 'apt', '2.5.3'
 depends 'marker', '~> 1.0.1'
 depends 'rightscale_tag', '~> 1.0.6'
 depends 'filesystem', '~> 0.10.0'
-depends 'lvm', '~> 1.1.0'
+depends 'lvm', '~> 1.3.6'
 depends 'rightscale_volume', '~> 1.2.4'
 depends 'rightscale_backup', '~> 1.1.5'
 
