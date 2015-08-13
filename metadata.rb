@@ -8,7 +8,7 @@ version '0.1.3'
 
 depends 'apt', '2.5.3'
 depends 'marker', '~> 1.0.1'
-depends 'rightscale_tag', '~> 1.0.5'
+depends 'rightscale_tag', '~> 1.0.6'
 depends 'filesystem', '~> 0.10.0'
 depends 'lvm', '~> 1.1.0'
 depends 'rightscale_volume', '~> 1.2.4'
