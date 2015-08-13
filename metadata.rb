@@ -113,14 +113,6 @@ attribute "apt-cacher-ng/backup/lineage",
           :required => 'required',
           :recipes => ['apt-cacher-ng::backup']
 
-attribute "apt-cacher-ng/backup/schedule/enable",
-          :display_name => 'Backup Schedule Enable',
-          :description => 'Enable or disable periodic backup schedule',
-          :default => 'false',
-          :choice => ['true', 'false'],
-          :required => 'recommended',
-          :recipes => ['apt-cacher-ng::enable_scheduled_backups']
-
 attribute "apt-cacher-ng/backup/schedule/hour",
           :display_name => "Backup Schedule Hour",
           :description => "The hour to schedule the backup on. This value should abide by crontab syntax. Use '*' for taking" +
@@ -182,6 +174,3 @@ attribute "apt-cacher-ng/restore/timestamp",
                           ' The backup selected will have been created on or before this timestamp. Example 1391473172',
           :required => 'recommended',
           :recipes => ['apt-cacher-ng::volume']
-
-
-
