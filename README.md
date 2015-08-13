@@ -38,20 +38,14 @@ To setup an apt-cacher-ng client, place the `apt-cacher-ng::cache_client` recipe
 - `node[apt-cacher-ng][cache][port]` - The port that apt-cacher-ng listens on.  Default: 3142
 - `node[apt-cacher-ng][cache][server]` - The hostname/ip of the apt-cacher-ng server
 
-## Create or restore an EBS volume for the apt-cacher-ng server
+## Create or restore a volume for the apt-cacher-ng server
 
-To create an EBS volume to the apt-cache-ng server, place the `apt-cacher-ng::volume` recipe above the `apt-cache-ng::default` recipe in the runlist, with the following attribute set:
+To create a volume to the apt-cache-ng server, place the `apt-cacher-ng::volume` recipe above the `apt-cache-ng::default` recipe in the runlist, with the following attribute set:
 
 - `node[apt-cacher-ng][device][nickname]` - Nickname for the volume. apt-cacher-ng::volume uses this for the filesystem label, which is restricted to 12 characters. If longer that 12 characters, the filesystem label will be set to the first 12 characters. Example: apt_cache
 - `node[apt-cacher-ng][device][volume_size]` - Size of the volume or logical volume to create (in GB). This disk must be large enough to hold all software packages expected to be cached. As an example, to cache an entire Ubuntu distribution for a single arch type, you will need approximately 15GB of disk space.
 - `node[apt-cacher-ng][device][mount_point]` - The mount point to mount the device on. Example: /mnt/storage. 
 - `node[apt-cacher-ng][backup][lineage]` - The prefix that will be used to name/locate the backup of the apt-cache-ng server.
-
-To restore a volume to the apt-cache-ng server, place the `apt-cacher-ng::volume` recipe above the `apt-cache-ng::default` recipe in the runlist, with the same attributres used to create the volume in addition to the following attribute set:
-
-- `node[apt-cache-ng][restore][lineage]` - The lineage name to restore backups from. Should match the backup lineage that the backup was taking from.
-- `node[apt-cache-ng][restore][timestamp]` - The timestamp (in seconds since UNIX epoch) to select a backup to restore from.
-- - The backup selected will have been created on or before this timestamp. Example 1391473172
 
 ### Destroy volume on decommission
 
@@ -80,6 +74,13 @@ To enable scheduled backups, run the `apt-cacher-ng::enable_scheduled_backups` r
 ### Disable backups
 
 To disable scheduled backups, run the `apt-cacher-ng::disable_scheduled_backups` recipe.
+
+## Restore a volume
+
+To restore a volume to the apt-cache-ng server, place the `apt-cacher-ng::volume` recipe above the `apt-cache-ng::default` recipe in the runlist, with the same attributres used to create the volume in addition to the following attribute set:
+
+- `node[apt-cache-ng][restore][lineage]` - The lineage name to restore backups from. Should match the backup lineage that the backup was taking from.
+- `node[apt-cache-ng][restore][timestamp]` - The timestamp (in seconds since UNIX epoch) to select a backup to restore from. The backup selected will have been created on or before this timestamp. Example 1391473172
 
 # Attributes
 
