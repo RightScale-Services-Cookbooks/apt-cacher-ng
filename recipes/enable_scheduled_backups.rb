@@ -21,13 +21,13 @@ marker "recipe_start_rightscale" do
   template "rightscale_audit_entry.erb"
 end
 
-schedule_hour = node['apt-cacher-ng']['schedule']['hour']
-schedule_minute = node['apt-cacher-ng']['schedule']['minute']
+schedule_hour = node['apt-cacher-ng']['backup']['schedule']['hour']
+schedule_minute = node['apt-cacher-ng']['backup']['schedule']['minute']
 lineage = node['apt-cacher-ng']['backup']['lineage']
 
 # Both schedule hour and minute should be set
 unless schedule_hour && schedule_minute
-  raise 'apt-cacher-ng/schedule/hour and apt-cacher-ng/schedule/minute inputs should be set'
+  raise 'apt-cacher-ng/backup/schedule/hour and apt-cacher-ng/backup/schedule/minute inputs should be set'
 end
 
 # Adds or removes the crontab entry for backup schedule based on rs-mysql/schedule/enable
@@ -37,4 +37,3 @@ cron "backup_schedule_#{lineage}" do
   command "rs_run_recipe --policy 'apt-cacher-ng::backup' --name 'apt-cacher-ng::backup'"
   action :create
 end
-
