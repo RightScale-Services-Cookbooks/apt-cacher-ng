@@ -13,6 +13,7 @@ depends 'filesystem', '~> 0.10.1'
 depends 'lvm', '~> 1.3.6'
 depends 'rightscale_volume', '~> 1.2.9'
 depends 'rightscale_backup', '~> 1.1.8'
+depends 'chef_handler', '~> 1.1.6'
 
 recipe 'apt-cacher-ng::default', 'Initial apt-cacher-ng'
 recipe 'apt-cacher-ng::volume', 'Creates or restores a volume and attaches it to the server.'
@@ -21,9 +22,9 @@ recipe 'apt-cacher-ng::volume', 'Creates or restores a volume and attaches it to
 #recipe 'apt-cacher-ng::cache_sync', 'Sync cache with the primary cache server'
 #recipe 'apt-cacher-ng::enable_scheduled_sync', 'Enable cron job to sync cache data with primary cache server'
 #recipe 'apt-cacher-ng::disable_scheduled_sync', 'Disable cron job to sync cache data with primary cache server'
-#recipe 'apt-cacher-ng::backup', 'Take a snapshot of the cache volume'
-#recipe 'apt-cacher-ng::enable_scheduled_backup', 'Enable cron job to snapshot cache data'
-#recipe 'apt-cacher-ng::disable_scheduled_backup', 'Disable cron job to snapshot cache data'
+recipe 'apt-cacher-ng::backup', 'Take a snapshot of the cache volume'
+recipe 'apt-cacher-ng::enable_scheduled_backups', 'Enable cron job to snapshot cache data'
+recipe 'apt-cacher-ng::disable_scheduled_backups', 'Disable cron job to snapshot cache data'
 recipe 'apt-cacher-ng::cache_client', 'Configure instance to use apt cache server'
 #recipe 'apt-cacher-ng::decommission', 'Cleanup resources on termination'
 
@@ -118,21 +119,21 @@ attribute "apt-cacher-ng/backup/schedule/enable",
           :default => 'false',
           :choice => ['true', 'false'],
           :required => 'recommended',
-          :recipes => ['apt-cacher-ng::enable_scheduled_backup']
+          :recipes => ['apt-cacher-ng::enable_scheduled_backups']
 
 attribute "apt-cacher-ng/backup/schedule/hour",
           :display_name => "Backup Schedule Hour",
           :description => "The hour to schedule the backup on. This value should abide by crontab syntax. Use '*' for taking" +
                           ' backups every hour. Example: 23',
           :required => 'required',
-          :recipes => ['apt-cacher-ng::enable_scheduled_backup']
+          :recipes => ['apt-cacher-ng::enable_scheduled_backups']
 
 attribute "apt-cacher-ng/backup/schedule/minute",
           :display_name => "Backup Schedule Minute",
           :description => "The minute to schedule the backup on. This value should abide by crontab syntax. Use '*' for taking" +
                           ' backups every hour. Example: 30',
           :required => 'required',
-          :recipes => ['apt-cacher-ng::enable_scheduled_backup']
+          :recipes => ['apt-cacher-ng::enable_scheduled_backups']
           
 attribute "apt-cacher-ng/backup/keep/dailies",
           :display_name => "Backup Keep Dailies",
