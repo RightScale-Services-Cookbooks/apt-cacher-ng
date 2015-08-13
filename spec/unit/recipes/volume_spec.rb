@@ -70,6 +70,10 @@ describe 'apt-cacher-ng::volume' do
       expect(chef_run).to mount_filesystem(nickname)
     end
 
+    it 'creates the apt-cacher-ng directory on the volume' do
+      expect(chef_run).to create_directory('/mnt/storage/apt-cacher-ng')
+    end
+
     it 'deletes the old cache directory' do
       expect(chef_run).to delete_directory(cache_dir).with(
         recursive: true,
@@ -124,6 +128,11 @@ describe 'apt-cacher-ng::volume' do
       expect(chef_run).to enable_mount(device)
     end
 
+    
+    it 'creates the apt-cacher-ng directory on the volume' do
+      expect(chef_run).to create_directory('/mnt/storage/apt-cacher-ng')
+    end
+    
     it 'deletes the old cache directory' do
       expect(chef_run).to delete_directory(cache_dir).with(
         recursive: true,

@@ -88,6 +88,10 @@ else
   end
 end
 
+directory new_cache_dir do
+  action :create
+end
+
 directory node['apt-cacher-ng']['cache']['dir'] do
   recursive true
   action :delete
