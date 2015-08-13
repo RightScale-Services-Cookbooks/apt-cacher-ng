@@ -17,9 +17,6 @@
 # limitations under the License.
 #
 
-# Enable/Disable scheduling backups
-default['apt-cacher-ng']['schedule']['enable'] = false
-
 # The hour for the backup schedule
 default['apt-cacher-ng']['schedule']['hour'] = nil
 
@@ -34,9 +31,6 @@ default['apt-cacher-ng']['device']['nickname'] = 'data_storage'
 
 # Size of the volume to be created
 default['apt-cacher-ng']['device']['volume_size'] = 10
-
-# Number of volumes in the stripe
-default['apt-cacher-ng']['device']['count'] = 2
 
 # I/O Operations Per Second value
 default['apt-cacher-ng']['device']['iops'] = nil
@@ -59,9 +53,6 @@ default['apt-cacher-ng']['device']['destroy_on_decommission'] = false
 # The additional options/flags to use for the `mkfs` command. If the whole device is formatted, the force (-F) flag
 # can be used (on ext4 filesystem) to force the operation. This flag may vary based on the filesystem type.
 default['apt-cacher-ng']['device']['mkfs_options'] = '-F'
-
-# The stripe size to use while creating LVM
-default['apt-cacher-ng']['device']['stripe_size'] = 512
 
 # Backup lineage
 default['apt-cacher-ng']['backup']['lineage'] = nil

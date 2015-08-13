@@ -8,7 +8,7 @@ version '0.1.3'
 
 depends 'apt', '2.5.3'
 depends 'marker', '~> 1.0.1'
-depends 'rightscale_tag', '~> 1.0.6'
+#depends 'rightscale_tag', '~> 1.0.6'
 depends 'filesystem', '~> 0.10.0'
 depends 'lvm', '~> 1.3.6'
 depends 'rightscale_volume', '~> 1.2.4'
@@ -74,7 +74,7 @@ attribute "apt-cacher-ng/sync/ssh_key",
             'apt-cacher-ng::default'
           ]
 
-attribute "apt-cacher-ng/volume/nickname",
+attribute "apt-cacher-ng/device/nickname",
           :display_name => "Volume Nickname",
           :description => 'Nickname for the volume. apt-cacher-ng::volume uses this for the filesystem label, which is' +
                           ' restricted to 12 characters. If longer that 12 characters, the filesystem label will be set' +
@@ -83,7 +83,7 @@ attribute "apt-cacher-ng/volume/nickname",
           :required => "recommended",
           :recipes => ['apt-cacher-ng::volume']
 
-attribute "apt-cacher-ng/volume/size",
+attribute "apt-cacher-ng/device/volume_size",
           :display_name => "Volume Size",
           :description => 'Size of the volume or logical volume to create (in GB). This disk must be large enough to hold all' +
                           ' software packages expected to be cached. As an example, to cache an entire Ubuntu distribution' +
@@ -92,12 +92,19 @@ attribute "apt-cacher-ng/volume/size",
           :required => "recommended",
           :recipes => ['apt-cacher-ng::volume']
 
-attribute "apt-cacher-ng/volume/destroy_on_decommission",
+attribute "apt-cacher-ng/device/destroy_on_decommission",
           :display_name => "Destroy on Decommission",
           :description => "If set to true, the volumes will be destroyed on decommission.",
           :default => "true",
           :required => "recommended",
           :recipes => ['apt-cacher-ng::decommission']
+
+attribute "apt-cacher-ng/device/mount_point",
+          :display_name => 'Device Mount Point',
+          :description => 'The mount point to mount the device on. Example: /mnt/storage',
+          :default => '/mnt/storage',
+          :recipes => ['apt-cacher-ng::volume', 'apt-cacher-ng::decommission'],
+          :required => 'recommended'
 
 attribute "apt-cacher-ng/backup/lineage",
           :display_name => 'Backup Lineage',
