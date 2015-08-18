@@ -9,7 +9,7 @@ require 'spec_helper'
 describe 'apt-cacher-ng::cache_client' do
   context 'When all attributes are default, on an unspecified platform' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new
+      runner = ChefSpec::ServerRunner.new
       runner.converge(described_recipe)
     end
 

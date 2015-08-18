@@ -4,27 +4,22 @@ maintainer_email 'premium@rightscale.com'
 license 'Apache 2.0'
 description 'Installs/Configures apt-cacher-ng'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '0.1.3'
+version '0.1.2'
 
 depends 'apt', '2.5.3'
 depends 'marker', '~> 1.0.1'
-#depends 'rightscale_tag', '~> 1.0.6'
-depends 'filesystem', '~> 0.10.1'
-depends 'lvm', '~> 1.3.6'
-depends 'rightscale_volume', '~> 1.2.9'
-depends 'rightscale_backup', '~> 1.1.8'
-depends 'chef_handler', '~> 1.1.6'
+#depends 'rightscale_tag', '~> 1.0.5'
 
 recipe 'apt-cacher-ng::default', 'Initial apt-cacher-ng'
-recipe 'apt-cacher-ng::volume', 'Creates or restores a volume and attaches it to the server.'
+#recipe 'apt-cacher-ng::volume', 'Creates or restores a volume and attaches it to the server.'
 #recipe 'apt-cacher-ng::collectd', 'Setup apt-cacher-ng monitoring'
 #recipe 'apt-cacher-ng::tags', 'Setup instance tagging'
 #recipe 'apt-cacher-ng::cache_sync', 'Sync cache with the primary cache server'
 #recipe 'apt-cacher-ng::enable_scheduled_sync', 'Enable cron job to sync cache data with primary cache server'
 #recipe 'apt-cacher-ng::disable_scheduled_sync', 'Disable cron job to sync cache data with primary cache server'
-recipe 'apt-cacher-ng::backup', 'Take a snapshot of the cache volume'
-recipe 'apt-cacher-ng::enable_scheduled_backups', 'Enable cron job to snapshot cache data'
-recipe 'apt-cacher-ng::disable_scheduled_backups', 'Disable cron job to snapshot cache data'
+#recipe 'apt-cacher-ng::backup', 'Take a snapshot of the cache volume'
+#recipe 'apt-cacher-ng::enable_scheduled_backup', 'Enable cron job to snapshot cache data'
+#recipe 'apt-cacher-ng::disable_scheduled_backup', 'Disable cron job to snapshot cache data'
 recipe 'apt-cacher-ng::cache_client', 'Configure instance to use apt cache server'
 #recipe 'apt-cacher-ng::decommission', 'Cleanup resources on termination'
 
@@ -75,7 +70,7 @@ attribute "apt-cacher-ng/sync/ssh_key",
             'apt-cacher-ng::default'
           ]
 
-attribute "apt-cacher-ng/device/nickname",
+attribute "apt-cacher-ng/volume/nickname",
           :display_name => "Volume Nickname",
           :description => 'Nickname for the volume. apt-cacher-ng::volume uses this for the filesystem label, which is' +
                           ' restricted to 12 characters. If longer that 12 characters, the filesystem label will be set' +
@@ -84,7 +79,7 @@ attribute "apt-cacher-ng/device/nickname",
           :required => "recommended",
           :recipes => ['apt-cacher-ng::volume']
 
-attribute "apt-cacher-ng/device/volume_size",
+attribute "apt-cacher-ng/volume/size",
           :display_name => "Volume Size",
           :description => 'Size of the volume or logical volume to create (in GB). This disk must be large enough to hold all' +
                           ' software packages expected to be cached. As an example, to cache an entire Ubuntu distribution' +
@@ -93,19 +88,12 @@ attribute "apt-cacher-ng/device/volume_size",
           :required => "recommended",
           :recipes => ['apt-cacher-ng::volume']
 
-attribute "apt-cacher-ng/device/destroy_on_decommission",
+attribute "apt-cacher-ng/volume/destroy_on_decommission",
           :display_name => "Destroy on Decommission",
           :description => "If set to true, the volumes will be destroyed on decommission.",
           :default => "true",
           :required => "recommended",
           :recipes => ['apt-cacher-ng::decommission']
-
-attribute "apt-cacher-ng/device/mount_point",
-          :display_name => 'Device Mount Point',
-          :description => 'The mount point to mount the device on. Example: /mnt/storage',
-          :default => '/mnt/storage',
-          :recipes => ['apt-cacher-ng::volume', 'apt-cacher-ng::decommission'],
-          :required => 'recommended'
 
 attribute "apt-cacher-ng/backup/lineage",
           :display_name => 'Backup Lineage',
@@ -113,19 +101,27 @@ attribute "apt-cacher-ng/backup/lineage",
           :required => 'required',
           :recipes => ['apt-cacher-ng::backup']
 
+attribute "apt-cacher-ng/backup/schedule/enable",
+          :display_name => 'Backup Schedule Enable',
+          :description => 'Enable or disable periodic backup schedule',
+          :default => 'false',
+          :choice => ['true', 'false'],
+          :required => 'recommended',
+          :recipes => ['apt-cacher-ng::enable_scheduled_backup']
+
 attribute "apt-cacher-ng/backup/schedule/hour",
           :display_name => "Backup Schedule Hour",
           :description => "The hour to schedule the backup on. This value should abide by crontab syntax. Use '*' for taking" +
                           ' backups every hour. Example: 23',
           :required => 'required',
-          :recipes => ['apt-cacher-ng::enable_scheduled_backups']
+          :recipes => ['apt-cacher-ng::enable_scheduled_backup']
 
 attribute "apt-cacher-ng/backup/schedule/minute",
           :display_name => "Backup Schedule Minute",
           :description => "The minute to schedule the backup on. This value should abide by crontab syntax. Use '*' for taking" +
-                          ' backups every minute. Example: 30',
+                          ' backups every hour. Example: 30',
           :required => 'required',
-          :recipes => ['apt-cacher-ng::enable_scheduled_backups']
+          :recipes => ['apt-cacher-ng::enable_scheduled_backup']
           
 attribute "apt-cacher-ng/backup/keep/dailies",
           :display_name => "Backup Keep Dailies",
@@ -174,3 +170,6 @@ attribute "apt-cacher-ng/restore/timestamp",
                           ' The backup selected will have been created on or before this timestamp. Example 1391473172',
           :required => 'recommended',
           :recipes => ['apt-cacher-ng::volume']
+
+
+
