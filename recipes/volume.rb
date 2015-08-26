@@ -89,6 +89,8 @@ else
 end
 
 directory new_cache_dir do
+  owner 'apt-cacher-ng'
+  group 'apt-cacher-ng'
   action :create
 end
 
