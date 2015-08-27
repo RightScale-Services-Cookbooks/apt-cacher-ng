@@ -78,7 +78,11 @@ else
   end
 
   directory node['apt-cacher-ng']['device']['mount_point'] do
+    owner 'root'
+    group 'root'
+    mode 0755
     recursive true
+    action :create
   end
 
   mount node['apt-cacher-ng']['device']['mount_point'] do
@@ -91,6 +95,7 @@ end
 directory new_cache_dir do
   owner 'apt-cacher-ng'
   group 'apt-cacher-ng'
+  mode 0755
   action :create
 end
 
